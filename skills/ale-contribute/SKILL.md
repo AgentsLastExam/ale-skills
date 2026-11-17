@@ -58,7 +58,7 @@ apply to one submission. A pull request that breaks one of them is sent back.
 - A Task blocked on something outside the repository (missing material, a service, a licence) is
   still one pull request, opened as a draft, with `[metadata] blocked = true` and `blocked_reason`
   in `task.toml`; its description says what would unblock it.
-- It merges when the CI check (`ale lint`) passes, `ale validate` passed, the Task's material is
+- It merges when the CI check (`ale lint`) passes, `ale calibrate` passed, the Task's material is
   clean on the dataset, and a reviewer approved it.
 
 ### 1.2 Code in Git, all material on the Hub
@@ -68,6 +68,7 @@ apply to one submission. A pull request that breaks one of them is sent back.
 | Inputs the agent works from | `environment/assets/` | the Dockerfile: `COPY assets/input/ /home/user/input/` |
 | Rubrics, expected values, reference and source documents of the verifier | `tests/assets/` | `verify.py` reads `assets/…` by relative path |
 | Reference deliverables of the oracle | `solution/assets/` | `solve.sh`: `cp -a assets/reference/. /home/user/output/` |
+| Deliverables of a calibration case | `calibration/<case>/assets/` | that case's `solve.sh`, the same way |
 
 - **Every** document, spreadsheet, image, data file, rubric workbook or expected output goes in an
   `assets/` root, whatever its size. Git holds only `task.toml`, `instruction.md`, the Dockerfile and
@@ -95,7 +96,11 @@ which governs:
   verifier crash is a verifier failure, never a score of 0.
 - **No shortcuts**: nothing in `environment/` reveals the answer; reference data stays in
   `tests/` and `solution/`, which the agent never sees; self-reported success earns nothing.
-- `ale validate`: the untouched Sandbox scores 0 and the oracle scores 1.
+- **Calibration cases**: beside `solution/`, add a `[[calibration]]` entry and
+  `calibration/<case>/solve.sh` for each partial or wrong solution whose score shows the
+  verifier's scale (`expect = { reward = [0.4, 0.6] }`), and for each shortcut the verifier must
+  catch (`expect = { reward = 0 }`); reviewers judge the scale from these without running it.
+- `ale calibrate`: the untouched Sandbox scores 0, the oracle 1, and every case as it expects.
 
 ### 1.4 Versions
 
@@ -139,14 +144,14 @@ ready ones together and opens one pull request per blocked Task), and the reposi
 2. Scaffold: `uv run ale new-task /abs/path/ale-tasks-<domain>/tasks/<path>` (it passes `ale lint`).
 3. Write `instruction.md`, `environment/` (Dockerfile + `environment/assets/`), `tests/`
    (`test.sh`, `verify.py` + `tests/assets/`) and `solution/` (`solve.sh` + `solution/assets/`)
-   following section 1.
+   following section 1, plus any calibration cases under `calibration/`.
 4. Check:
    ```bash
    cd /abs/path/ale
    uv run ale lint /abs/path/ale-tasks-<domain>/tasks/<path>
-   uv run ale validate /abs/path/ale-tasks-<domain>/tasks/<path>   # untouched 0, oracle 1
+   uv run ale calibrate /abs/path/ale-tasks-<domain>/tasks/<path>  # every case as expected
    ```
-   `validate` builds the image and, for Judge-scored Tasks, needs the run's Judge configuration.
+   `calibrate` builds the image and, for Judge-scored Tasks, needs the run's Judge configuration.
 5. Push the material, then the code:
    ```bash
    uv run ale assets push /abs/path/ale-tasks-<domain>/tasks/<path>
@@ -167,7 +172,7 @@ ready ones together and opens one pull request per blocked Task), and the reposi
 
    ## Checks
    - ale lint: pass
-   - ale validate: untouched <0.0>, oracle <1.0> (engine commit <sha>)
+   - ale calibrate: untouched <0.0>, oracle <1.0>, <n> cases as expected (engine commit <sha>)
    - assets: pushed, `ale assets status` clean; <n> files in environment/tests/solution assets
 
    ## Taxonomy placement
