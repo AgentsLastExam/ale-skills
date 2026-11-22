@@ -1,0 +1,57 @@
+# Problem tree
+# Location: tests/agent-judge/problem-tree.toml in the task package; written in step 2 and confirmed by the expert in step 3.
+# The agent judge checks the task sub-question by sub-question against this file. The file sits in tests/ and is not shown to the solving agent;
+# the sub-questions in the task statement are drawn from the question fields of nodes, and the task statement must not contain claim or criterion.
+
+problem_class = "explanation"        # explanation | prediction | inversion | design | development; identical to task.toml
+
+[root]
+question = ""                        # the scientific question to be answered
+criteria = ""                        # judgement of the root: all sub-questions hold, plus the overall judgement the class specifies (see the class module)
+
+# One [[nodes]] per sub-question. Sub-questions are divided by scientific content, not by type of evidence or check.
+# The id also numbers the sub-question in the task statement and the per-item verdict in verification.json.
+[[nodes]]
+id = "1"
+parent = ""                          # id of the sub-question one level up; an empty string means directly under the root
+question = ""                        # the sub-question
+claim = ""                           # the conclusion the solving agent must reach; leaves only
+necessary_conditions = []            # conditions the claim must satisfy to hold, each with its method of checking
+
+# Each leaf contains the three items its class specifies, none omitted. Values of kind:
+#   Explanation  phenomenon / simulation / theory
+#   Prediction   model / computation / comparison
+#   Inversion    data / forward / constraint (constraints and identifiability)
+#   Design       condition / computation / rationale
+#   Development  principle / recomputation / ablation
+[[nodes.items]]
+kind = "phenomenon"
+requirement = ""                     # what this item must provide
+tools = []                           # tools the agent judge calls, e.g. "tests/scripts/check_amplitude.py", "rerun", "tests/lean/Limit.lean"
+criterion = ""                       # the standard for judging it to hold, including tolerance
+
+[[nodes.items]]
+kind = "simulation"
+requirement = ""
+tools = []
+criterion = ""
+
+[[nodes.items]]
+kind = "theory"
+requirement = ""
+tools = []
+criterion = ""
+
+# When a claim concerns causation, one [[ablations]] per element
+[[ablations]]
+node = "1"                           # id of the sub-question concerned
+element = ""                         # the element removed
+result_when_removed = ""
+category = "required"                # required | influential | negligible
+valid_range = ""                     # parameter range in which this holds
+
+[output]
+format = ""                          # unified output format: the format in which different solutions to the same sub-question submit their output; the numerical-check scripts are written against it
+
+[merge]
+consistency = []                     # consistency the combined evidence must satisfy, e.g. every required element confirmed in simulation has a corresponding term in the equations
