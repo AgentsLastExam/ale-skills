@@ -1,5 +1,5 @@
 ---
-name: ale-expert-task-building
+name: ale-ariadne
 description: Assist a domain expert in constructing an ALE task from a frontier scientific problem. The expert assigns the problem class (Explanation, Prediction, Inversion, Design, Development); the problem is decomposed into a problem tree by class and investigated with the expert, and for each leaf the checks to be called by the agent judge are specified; after the expert confirms the plan, the task package is built in a preliminary version, self-checked, and submitted to the project team. Applies to physics, chemistry, materials, biology, earth science and medicine problems that are purely computational, that use existing data, or that require a new observation obtainable within six hours. Use when an expert wishes to contribute a task or to turn a research problem of their own into a benchmark task.
 ---
 
