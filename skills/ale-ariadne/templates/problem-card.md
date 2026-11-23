@@ -13,6 +13,8 @@ Whether the conversation is submitted: (full conversation / research records onl
 - Significance:
 - Current difficulty:
 - What constitutes progress:
+- Expected deliverable and what it would establish:
+- Suitability for iterative improvement (RSI): record the reason and, if applicable, the feedback available for a revision.
 
 ## Classifications
 

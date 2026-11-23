@@ -4,14 +4,14 @@ Compile what the first two steps have established into a task plan and ask the e
 
 ## Procedure
 
-1. **Draft the plan.** Write it from `templates/plan.md`, drawing all content from the problem card, the problem tree, the research log and the checking plan. Do not introduce at this step anything that has not been discussed with the expert.
+1. **Draft the plan.** Write it from `templates/plan.md`, drawing all content from the problem card, the problem tree, the research log and the checking plan. Do not introduce at this step anything that has not been discussed with the expert. Check the scoring against the agreed deliverable in both directions: would a sound answer using another method receive the credit it deserves, and what would a full score actually establish? Resolve any mismatch with the expert before confirmation.
 2. **Explain the plan in terms the expert can readily follow.** Send the plan to the expert together with a brief explanation: what the solving agent will receive, what it must submit, how the score is computed, and in which cases it scores full marks or 0.
 3. **Await the expert's explicit confirmation.** If the expert requests changes, make them and ask the expert to review again. Do not enter step 4 before the expert has explicitly confirmed.
 4. **Record the confirmation.** At the end of the plan, record the date and the expert's own words. If the expert has not explicitly confirmed, record nothing.
 
 ## Contents of the plan
 
-- **Task scope**: the problem the solving agent must solve, the inputs provided, and what is withheld.
+- **Task scope**: the problem the solving agent must solve, the inputs provided, and what is withheld. For an iterative task, specify which feedback the solver will receive after a submission.
 - **Deliverables**: the files to be submitted, their format and their paths.
 - **Problem tree**: the root question, the sub-questions, and each leaf's claim, evidence and necessary conditions. Sub-questions are written into the task statement by default.
 - **Unified output format**: the format of the output that all solutions to a sub-question submit.

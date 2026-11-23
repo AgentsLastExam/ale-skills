@@ -8,6 +8,8 @@ Before submission, have an agent solve the task once or twice on the expert's ma
 2. Have it work through the task from the start as in a real attempt, submit an answer, and obtain a score from the agent judge.
 3. Carry this out once or twice, recording the process and score of each run in `research/selfcheck.md`. Where a trial run submits a partially correct answer, ask the expert for an expected score and add it to `calibration/` as a calibration case, with a corresponding `[[calibration]]` entry in `task.toml`.
 
+For a task intended for RSI, use one of these trials to test a revision. After the first submission, give the same solving session only the feedback specified in the plan. Have it revise the candidate and submit again under the same conditions. Record the feedback, what changed and both results in the trial-run remarks. Check whether the feedback allowed a meaningful revision and whether the judge assessed it consistently, even if the score stayed the same or fell. If a required observation is unavailable, record which part of the trial remains untested.
+
 Matters the trial runs must confirm:
 
 - The environment starts, and the software and data named in the task statement are present.
