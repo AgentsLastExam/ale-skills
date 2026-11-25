@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Upload one `ale run` run directory to its domain's run-record dataset, filed by Task version.
+"""Upload one `orbit run` run directory to its domain's run-record dataset, filed by Task version.
 
 usage:
   upload_runs.py RUN_DIR --repo-dir /path/to/ale-tasks-<domain> --runs-dataset <org>/ale-tasks-<domain>-runs
@@ -13,7 +13,7 @@ version:
   - the engine commit is known.
 It then derives the Task version from what the lock names (the Task folder's git tree at the
 recorded commit, and the Task's material tree on the asset dataset at the recorded asset commit),
-writes version.json, and uploads each episode exactly as ale run wrote it to
+writes version.json, and uploads each episode exactly as orbit run wrote it to
   tasks/<path>/<version>/<run id>/<episode id>/
 The run-record dataset's root ale-runs.json names the repository, the asset dataset and the
 dataset id used in version hashes. Nothing is uploaded with --dry-run.
@@ -59,14 +59,14 @@ def main() -> int:
     ap.add_argument("run_dir", type=Path)
     ap.add_argument("--repo-dir", type=Path, required=True, help="a clone of the Task repository the run used")
     ap.add_argument("--runs-dataset", required=True, help="<org>/ale-tasks-<domain>-runs")
-    ap.add_argument("--hf-token-env-file", type=Path, help=".env holding ALE_HF_TOKEN (default: $ALE_HF_TOKEN)")
+    ap.add_argument("--hf-token-env-file", type=Path, help=".env holding ORBIT_HF_TOKEN (default: $ORBIT_HF_TOKEN)")
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
 
-    token = os.environ.get("ALE_HF_TOKEN")
+    token = os.environ.get("ORBIT_HF_TOKEN") or os.environ.get("ALE_HF_TOKEN")
     if a.hf_token_env_file:
         token = next((l.split("=", 1)[1].strip() for l in a.hf_token_env_file.read_text().splitlines()
-                      if l.startswith("ALE_HF_TOKEN=")), token)
+                      if l.startswith(("ORBIT_HF_TOKEN=", "ALE_HF_TOKEN="))), token)
     config_path = f"datasets/{a.runs_dataset}/resolve/main/ale-runs.json"
     request = urllib.request.Request(f"{HF}/{config_path}", headers={"Authorization": f"Bearer {token}"} if token else {})
     try:
@@ -74,7 +74,7 @@ def main() -> int:
             config = json.loads(response.read())
     except urllib.error.HTTPError as exc:
         print(f"cannot read {a.runs_dataset}/ale-runs.json (HTTP {exc.code}): the dataset is gated; request access on "
-              f"its page and pass a token with --hf-token-env-file or ALE_HF_TOKEN", file=sys.stderr)
+              f"its page and pass a token with --hf-token-env-file or ORBIT_HF_TOKEN", file=sys.stderr)
         return 1
     repository, asset_dataset, version_dataset = config["repository"], config["asset_dataset"], config["version_dataset_id"]
 
