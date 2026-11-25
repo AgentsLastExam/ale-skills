@@ -23,10 +23,9 @@ If `submit_task` refuses the submission, the `missing` field of its response lis
 
 ## Submission procedure
 
-Every submission method requires two parameters, taken from the problem card and written in the expert's language: `problem`, the one- or two-sentence statement of the problem accepted by the expert, and `progress_criterion`, what result constitutes progress.
+Submission requires two parameters, taken from the problem card and written in the expert's language: `problem`, the one- or two-sentence statement of the problem accepted by the expert, and `progress_criterion`, what result constitutes progress.
 
-- **ALE Brew deployed on the project team's server** (the usual case): call `request_upload`, run the command it returns in the working directory to upload the task folder, then call `submit_task` with the `upload_id`. Include `research/` in the upload.
-- **ALE Brew running on the expert's machine**: call `submit_task` with `package_dir` set to the absolute path of the task directory.
+Call `request_upload`, run the command it returns in the working directory to upload the task folder, then call `submit_task` with the `upload_id`. Include `research/` in the upload.
 
 `submit_task` first checks the task package: whether all five parts are present, whether files from `research/` have been copied into the task statement or solving environment, whether symbolic links are present, and whether the package is too large. Problems found are listed in the `problems` field of the response; correct them and submit again. Large files that cannot go into the task package are stored in the controlled dataset designated by the project team, as described in step 4.
 

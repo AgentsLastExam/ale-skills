@@ -32,7 +32,7 @@ This is a preliminary build whose purpose is to confirm that the plan is workabl
 
 ## `ale lint` and `ale calibrate`
 
-`ale` is the command-line tool of the ALE engine, from the ALE engine repository (`AgentsLastExam/ale`). Running it successfully on the expert's machine first exposes problems in the plan early. If `ale` is not yet installed on the expert's machine, install it following the instructions the project team gives to experts.
+Running `ale` successfully on the expert's machine first exposes problems in the plan early. If `ale` is not yet installed on the expert's machine, install it following the instructions the project team gives to experts.
 
 | Command | Function | Prerequisite |
 |---|---|---|
@@ -106,7 +106,7 @@ Begin the file with `schema_version = "1.4+ale.1"`; set `artifacts` to the paths
     - `network_justification`: required when network access is open.
 - `[metadata.science]`: `problem_class` (the problem class assigned by the expert: `explanation`, `prediction`, `inversion`, `design` or `development`), `discovery_level` (scientific discovery level 1, 2 or 3) and `observation_level` (physical-world observation level 0, 1, 2 or 3), as in the problem card.
 - `[metadata.wet_lab]`: required for tasks at physical-world observation level 2, as in the problem card. `instrument_category` is the resource category, one of `autolab`, `benchtop` (benchtop instruments), `large_instrument` (large instruments), `robotics`; `instruments` lists each instrument used as "name + model", for example `["BioTek Synergy H1 plate reader", "Bio-Rad CFX96 PCR system"]`.
-- `[agent]`: the time limit `timeout_sec` defaults to 900 seconds, which is often insufficient for scientific tasks; set it according to the plan. Network `network_mode`: offline, allowlist or open; an allowlist requires `allowed_hosts`.
+- `[agent]`: set the time limit `timeout_sec` according to the plan. Network `network_mode`: offline, allowlist or open; an allowlist requires `allowed_hosts`.
 - `[environment]`: whether a GPU is needed, and which model. Resource settings must agree with the usage measured in step 2.
 - `[[calibration]]`: one entry per calibration case, matching the folders in `calibration/` one to one. `name` is the case name, that is, the folder name; `expect` gives the expected score of `reward` and of any other metric, as a number or a range `[lo, hi]`; `reward` lies between 0 and 1, other metrics are unbounded.
 
