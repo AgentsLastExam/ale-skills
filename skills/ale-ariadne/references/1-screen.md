@@ -12,7 +12,7 @@ This step determines whether the problem is suitable for construction here. Two 
 6. **Establish the verification cycle and verification cost.** See "Verification cycle and verification cost" below.
 7. **Estimate the curation cost.** Give an estimate with its basis: the effort required to turn the problem into a task, whether the data are ready or require cleaning, and whether known results exist that can serve as calibration cases.
 8. **Determine the outcome.** According to the table below.
-9. **Ask the expert to review the problem card.** Use the expert's account to describe what a solver would hand back and what that result would establish. Discuss whether the task would suit iterative improvement (RSI): given an incomplete first submission, what feedback could the solver use to revise it, and how would the expert recognise progress on the next attempt? Record the expert's view on the card. A task can proceed as a single-attempt ALE evaluation. Ask the expert to confirm the card and decide whether to proceed. Enter step 2 only after the expert decides to proceed.
+9. **Ask the expert to review the problem card.** Use the expert's account to describe what a solver would hand back and what that result would establish. Discuss with the expert whether the task suits iterative improvement (RSI): for an incomplete first submission, the feedback the solver can use to revise it, and the way the expert recognises progress in the next attempt. Record the expert's view on the card. A task can proceed as a single-attempt ALE evaluation. Ask the expert to confirm the card and decide whether to proceed. Enter step 2 only after the expert decides to proceed.
 
 ## Verification cycle and verification cost
 

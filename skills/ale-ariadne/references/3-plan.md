@@ -4,7 +4,7 @@ Compile what the first two steps have established into a task plan and ask the e
 
 ## Procedure
 
-1. **Draft the plan.** Write it from `templates/plan.md`, drawing all content from the problem card, the problem tree, the research log and the checking plan. Do not introduce at this step anything that has not been discussed with the expert. Check the scoring against the agreed deliverable in both directions: would a sound answer using another method receive the credit it deserves, and what would a full score actually establish? Resolve any mismatch with the expert before confirmation.
+1. **Draft the plan.** Write it from `templates/plan.md`, drawing all content from the problem card, the problem tree, the research log and the checking plan. Do not introduce at this step anything that has not been discussed with the expert. Check the scoring against the agreed deliverable in both directions: a sound answer that uses another method receives the credit it deserves, and a full score establishes the agreed result. Resolve any mismatch with the expert before confirmation.
 2. **Explain the plan in terms the expert can readily follow.** Send the plan to the expert together with a brief explanation: what the solving agent will receive, what it must submit, how the score is computed, and in which cases it scores full marks or 0.
 3. **Await the expert's explicit confirmation.** If the expert requests changes, make them and ask the expert to review again. Do not enter step 4 before the expert has explicitly confirmed.
 4. **Record the confirmation.** At the end of the plan, record the date and the expert's own words. If the expert has not explicitly confirmed, record nothing.
