@@ -5,6 +5,7 @@
 - Problem the solving agent must solve:
 - Inputs provided:
 - Content withheld:
+- Feedback available to the solver between submissions (if applicable):
 
 ## Deliverables
 

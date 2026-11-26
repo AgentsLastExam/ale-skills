@@ -4,7 +4,7 @@ This step determines whether the problem is suitable for construction here. Two 
 
 ## Procedure
 
-1. **Hear the expert's account of the problem.** Ask the expert to explain in their own words what the problem is, why it matters, where the current difficulty lies, and what result would constitute progress. If the problem comes from the project team's problem list, read that entry in full before the conversation.
+1. **Hear the expert's account of the problem.** Ask the expert to explain in their own words what the problem is, why it matters, where the current difficulty lies, and what result would constitute progress. If its significance is still unclear, ask what other research a solution would make possible, what bottleneck it would remove, or what scientific limit it would clarify. If the problem comes from the project team's problem list, read that entry in full before the conversation.
 2. **Accumulate problem sense.** Before the conversation, read the matching `references/problem-sense/<discipline>.md`. While the expert describes the problem, follow up on the research direction: which problems matter, why, and what constitutes a good result. Afterwards, record this in `research/problem-sense-notes.md`; see `references/problem-sense.md`.
 3. **Investigate first.** Read the papers, data and code the expert provides. Verify that the data and code can be obtained, that their licences permit inclusion in a task, and that the code runs on the current machine. Bring the findings back to the expert for confirmation rather than asking the expert to investigate on the agent's behalf.
 4. **Read the "Screening criteria" in the discipline file.** The files are in `references/disciplines/`, selected by discipline.
@@ -12,7 +12,7 @@ This step determines whether the problem is suitable for construction here. Two 
 6. **Establish the verification cycle and verification cost.** See "Verification cycle and verification cost" below.
 7. **Estimate the curation cost.** Give an estimate with its basis: the effort required to turn the problem into a task, whether the data are ready or require cleaning, and whether known results exist that can serve as calibration cases.
 8. **Determine the outcome.** According to the table below.
-9. **Ask the expert to review the problem card.** Ask the expert to confirm its content and to decide whether to proceed. Enter step 2 only after the expert decides to proceed.
+9. **Ask the expert to review the problem card.** Use the expert's account to describe what a solver would hand back and what that result would establish. Discuss whether the task would suit iterative improvement (RSI): given an incomplete first submission, what feedback could the solver use to revise it, and how would the expert recognise progress on the next attempt? Record the expert's view on the card. A task can proceed as a single-attempt ALE evaluation. Ask the expert to confirm the card and decide whether to proceed. Enter step 2 only after the expert decides to proceed.
 
 ## Verification cycle and verification cost
 
