@@ -1,5 +1,27 @@
 # Biology
 
+## Subdomains
+
+The directions of biology differ widely in their objects of study, types of data and ways of verification. This file gives what is common to all of them. Once the expert has described the research problem, pick the subdomain file from the table below and read it as well; the files are in `references/disciplines/biology/`. A subdomain file only adds what is specific to that direction (screening examples, checking templates, data sources, tools, pitfalls and a worked example); it does not alter the provisions of this file. When a problem spans two subdomains, read both files; when it is unclear where a problem belongs, ask the expert to say. Record the chosen subdomain under "Discipline" in the problem card.
+
+| Subdomain | Scope | File |
+|---|---|---|
+| Molecular biophysics and structure | Protein folding and energy landscapes, experimental structure determination, molecular dynamics and free energy, protein engineering and de novo design, nucleic acid structure and dynamics | `molecular-biophysics.md` |
+| Genomes and omics | Genome assembly and variant discovery, epigenome and chromatin state, transcriptome and splicing, proteome and post-translational state, metabolome and multi-omic integration | `genomics-omics.md` |
+| Computational biology | Sequence alignment and search, phylogenetic inference, single-cell data analysis, networks and pathway modeling, machine learning models of biology | `computational-biology.md` |
+| Bioengineering and synthetic biology | Genome editing tools, synthetic circuits and chassis, biomaterials and delivery, biosensors and imaging probes, directed evolution and screens | `bioengineering.md` |
+| Microbiology and virology | Bacterial physiology and metabolism, resistance, phages and interbacterial conflict, virus replication and host interaction, microbiomes and communities, microbial genetics tools | `microbiology-virology.md` |
+| Molecular and cell biology | Gene expression control, trafficking and organelles, cytoskeleton and cell mechanics, cell cycle, cell death and quality control, signal transduction | `cell-biology.md` |
+| Immunology | Innate immunity and inflammation, lymphocyte development and repertoire, antigen recognition and structural immunology, mucosal and tissue immunity, mechanisms of immunotherapy | `immunology.md` |
+| Cellular and circuit neuroscience | Synaptic transmission and plasticity, neuronal cell types and atlases, circuit recording and manipulation, neural development and wiring, glia and neuroimmune interaction | `cellular-neuroscience.md` |
+| Development and tissue biology | Morphogenesis and patterning, stem cells and fate decisions, organoids and in vitro development, regeneration and repair, evolution of development | `developmental-biology.md` |
+| Systems and behavioral neuroscience | Sensory coding, motor control, learning, memory and decision, whole-brain imaging and connectivity, computational models of brain function | `systems-neuroscience.md` |
+| Physiology and disease mechanism | Organ system physiology, metabolism and energy balance, circadian rhythm and homeostasis, mechanisms of pharmacology and toxicology, animal and cellular disease models | `physiology.md` |
+| Plant biology | Photosynthesis and carbon metabolism, plant development and hormones, plant immunity and stress response, crop genetics and improvement, roots, rhizosphere and symbiosis | `plant-biology.md` |
+| Evolution and ecology | Population genetics and selection, phylogenomics and comparative genomics, species interaction and community ecology, behavior and cognitive ecology, paleobiology and deep time | `evolution-ecology.md` |
+
+For problems whose object is patients, clinical data or care, see `references/disciplines/medicine.md`; for problems that are mainly the chemistry of small molecules, enzyme catalysis or drug molecules, see `references/disciplines/chemistry.md`.
+
 ## Screening criteria
 
 - Build with priority: questions that can be answered with public data and verified with held-out data or an independent dataset (prediction, inference, reanalysis).
