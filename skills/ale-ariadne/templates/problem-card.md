@@ -12,6 +12,7 @@ Whether the conversation is submitted: (full conversation / research records onl
 - Source: (entry in the project team's problem list, or the expert's own problem)
 - Significance:
 - Current difficulty:
+- Best existing result and its gap to the upper limit (scientific discovery level 3, with source):
 - What constitutes progress:
 - Expected deliverable and what it would establish:
 - Suitability for iterative improvement (RSI): record the reason and, if applicable, the feedback available for a revision.
