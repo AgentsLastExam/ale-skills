@@ -1,6 +1,6 @@
 ---
 name: ale-contribute
-description: How a participant in Agents' Last Exam (ALE) submits a Task to their domain's repository (AgentsLastExam/ale-tasks-<domain>) with its material on Hugging Face, and submits the run records (trajectories) that `ale run` produces to the domain's run-record dataset. Use when asked to add, change or submit an ALE Task, push Task assets, run a Task with an agent, or upload / share ALE run traces.
+description: How a participant in Agents' Last Exam (ALE) submits a Task to their domain's repository (AgentsLastExam/ale-tasks-<domain>) with its material on Hugging Face, and submits the run records (trajectories) that `orbit run` produces to the domain's run-record dataset. Use when asked to add, change or submit an ALE Task, push Task assets, run a Task with an agent, or upload / share ALE run traces.
 ---
 
 # Contributing Tasks and run records to ALE
@@ -11,14 +11,14 @@ Every ALE domain has three places, all named after the domain's Task repository:
 |---|---|---|
 | Task code | GitHub `AgentsLastExam/ale-tasks-<domain>` (private) | `task.toml`, `instruction.md`, Dockerfile, verifier and solution code |
 | Task material | Hugging Face `<organization>/ale-tasks-<domain>` (gated) | every input, reference deliverable, rubric and source document, at the same paths |
-| Run records | Hugging Face `<organization>/ale-tasks-<domain>-runs` (gated) | the episodes `ale run` produced, filed by Task version |
+| Run records | Hugging Face `<organization>/ale-tasks-<domain>-runs` (gated) | the episodes `orbit run` produced, filed by Task version |
 
 Your domain repository's README names its organization and both datasets; read it first. The
 shared rules are in the [`ale-tasks-base` README](https://github.com/AgentsLastExam/ale-tasks-base#code-in-git-material-on-the-hub),
 the Task format in the engine's
-[task-authoring.md](https://github.com/AgentsLastExam/ale/blob/main/docs/specs/task-authoring.md) and
+[task-authoring.md](https://github.com/AgentsLastExam/orbit/blob/main/docs/specs/task-authoring.md) and
 what makes a Task acceptable in its
-[task-quality-standard.md](https://github.com/AgentsLastExam/ale/blob/main/docs/specs/task-quality-standard.md).
+[task-quality-standard.md](https://github.com/AgentsLastExam/orbit/blob/main/docs/specs/task-quality-standard.md).
 
 ## 0. Set up once
 
@@ -26,18 +26,18 @@ what makes a Task acceptable in its
    Hugging Face dataset pages (they are gated; an administrator approves).
 2. Clone the engine and the domain repository side by side, then install the engine:
    ```bash
-   git clone https://github.com/AgentsLastExam/ale
+   git clone https://github.com/AgentsLastExam/orbit
    git clone https://github.com/AgentsLastExam/ale-tasks-<domain>
-   cd ale && uv sync --frozen
+   cd orbit && uv sync --frozen
    ```
-3. In `ale/.env` put a Hugging Face token with read access (write access to push material):
+3. In `orbit/.env` put a Hugging Face token with read access (write access to push material):
    ```bash
-   ALE_HF_TOKEN=hf_...
-   ALE_ASSETS_NAMESPACE=<organization>     # from your domain README; omit only for agents-last-exam
+   ORBIT_HF_TOKEN=hf_...
+   ORBIT_ASSETS_NAMESPACE=<organization>     # from your domain README; omit only for agents-last-exam
    ```
    Keep `.env` out of every commit, message and log. If one engine checkout serves several
-   domains, leave `ALE_ASSETS_NAMESPACE` out of `.env` and put it in front of each command instead.
-4. Fetch the existing material: `uv run ale assets pull /abs/path/ale-tasks-<domain>`.
+   domains, leave `ORBIT_ASSETS_NAMESPACE` out of `.env` and put it in front of each command instead.
+4. Fetch the existing material: `uv run orbit assets pull /abs/path/ale-tasks-<domain>`.
 
 ## 1. Rules every Task submission follows
 
@@ -58,7 +58,7 @@ apply to one submission. A pull request that breaks one of them is sent back.
 - A Task blocked on something outside the repository (missing material, a service, a licence) is
   still one pull request, opened as a draft, with `[metadata] blocked = true` and `blocked_reason`
   in `task.toml`; its description says what would unblock it.
-- It merges when the CI check (`ale lint`) passes, `ale validate` passed, the Task's material is
+- It merges when the CI check (`orbit lint`) passes, `orbit calibrate` passed, the Task's material is
   clean on the dataset, and a reviewer approved it.
 
 ### 1.2 Code in Git, all material on the Hub
@@ -73,14 +73,14 @@ apply to one submission. A pull request that breaks one of them is sent back.
   `assets/` root, whatever its size. Git holds only `task.toml`, `instruction.md`, the Dockerfile and
   build scripts, `setup/`, `test.sh`, `verify.py` and other verifier code, and `solve.sh`.
 - The asset roots are ignored by Git; never force-add them. Push them with
-  `ale assets push <the Task's path>` (never the whole repository), and only when the code is ready:
+  `orbit assets push <the Task's path>` (never the whole repository), and only when the code is ready:
   material pushed for an existing Task changes what `main` runs immediately, so say so in the
   pull request.
-- Before asking for review, `ale assets status <the Task's path>` says `clean`.
+- Before asking for review, `orbit assets status <the Task's path>` says `clean`.
 
 ### 1.3 The Task contract
 
-From the engine's [Task quality standard](https://github.com/AgentsLastExam/ale/blob/main/docs/specs/task-quality-standard.md),
+From the engine's [Task quality standard](https://github.com/AgentsLastExam/orbit/blob/main/docs/specs/task-quality-standard.md),
 which governs:
 
 - **Instruction**: the required outcome, with literal paths (`/home/user/input/…`,
@@ -95,7 +95,9 @@ which governs:
   verifier crash is a verifier failure, never a score of 0.
 - **No shortcuts**: nothing in `environment/` reveals the answer; reference data stays in
   `tests/` and `solution/`, which the agent never sees; self-reported success earns nothing.
-- `ale validate`: the untouched Sandbox scores 0 and the oracle scores 1.
+- `orbit calibrate`: the reference solution (`solution/`) scores 1, or what its `[[calibration]]`
+  entry declares, and every further case in `calibration/<case>/` scores as declared. To check
+  that the start state earns nothing, declare a case whose `solve.sh` does nothing and expects 0.
 
 ### 1.4 Versions
 
@@ -136,21 +138,21 @@ ready ones together and opens one pull request per blocked Task), and the reposi
 ## 2. Submit a Task
 
 1. Branch: `git -C ale-tasks-<domain> switch -c task/<path>`.
-2. Scaffold: `uv run ale new-task /abs/path/ale-tasks-<domain>/tasks/<path>` (it passes `ale lint`).
+2. Scaffold: `uv run orbit new-task /abs/path/ale-tasks-<domain>/tasks/<path>` (it passes `orbit lint`).
 3. Write `instruction.md`, `environment/` (Dockerfile + `environment/assets/`), `tests/`
    (`test.sh`, `verify.py` + `tests/assets/`) and `solution/` (`solve.sh` + `solution/assets/`)
    following section 1.
 4. Check:
    ```bash
-   cd /abs/path/ale
-   uv run ale lint /abs/path/ale-tasks-<domain>/tasks/<path>
-   uv run ale validate /abs/path/ale-tasks-<domain>/tasks/<path>   # untouched 0, oracle 1
+   cd /abs/path/orbit
+   uv run orbit lint /abs/path/ale-tasks-<domain>/tasks/<path>
+   uv run orbit calibrate /abs/path/ale-tasks-<domain>/tasks/<path>   # every calibration case as declared
    ```
-   `validate` builds the image and, for Judge-scored Tasks, needs the run's Judge configuration.
+   `calibrate` builds the image and, for Judge-scored Tasks, needs the run's Judge configuration.
 5. Push the material, then the code:
    ```bash
-   uv run ale assets push /abs/path/ale-tasks-<domain>/tasks/<path>
-   uv run ale assets status /abs/path/ale-tasks-<domain>/tasks/<path>   # must say clean
+   uv run orbit assets push /abs/path/ale-tasks-<domain>/tasks/<path>
+   uv run orbit assets status /abs/path/ale-tasks-<domain>/tasks/<path>   # must say clean
    git -C /abs/path/ale-tasks-<domain> add tasks/<path>
    git -C /abs/path/ale-tasks-<domain> diff --cached --stat               # only tasks/<path>/, no material
    git -C /abs/path/ale-tasks-<domain> commit -m "Add <path>: <outcome>"
@@ -166,9 +168,9 @@ ready ones together and opens one pull request per blocked Task), and the reposi
    <how verify.py scores it: deterministic checks / LLM Judge / Agent Judge; what full credit requires>
 
    ## Checks
-   - ale lint: pass
-   - ale validate: untouched <0.0>, oracle <1.0> (engine commit <sha>)
-   - assets: pushed, `ale assets status` clean; <n> files in environment/tests/solution assets
+   - orbit lint: pass
+   - orbit calibrate: solution <1.0>; <further case>: <reward> (engine commit <sha>)
+   - assets: pushed, `orbit assets status` clean; <n> files in environment/tests/solution assets
 
    ## Taxonomy placement
    - primary: <node id> (<node name>) — confidence <high|medium|low> — <one-sentence basis>
@@ -184,12 +186,12 @@ ready ones together and opens one pull request per blocked Task), and the reposi
 1. Run from a clean, pushed checkout: the Task's code committed and its assets `clean`, so the
    run can be filed under a Task version.
    ```bash
-   cd /abs/path/ale
-   uv run ale run /abs/path/ale-tasks-<domain>/tasks/<name> --agent <agent> --model <model> -n <episodes>
+   cd /abs/path/orbit
+   uv run orbit run /abs/path/ale-tasks-<domain>/tasks/<name> --agent <agent> --model <model> -n <episodes>
    ```
    Each run writes `runs/<run id>/<episode id>/` with `result.json`, `lock.json`,
    `trajectory.json`, `verification.json`, traces and `blobs/`
-   ([what each holds](https://github.com/AgentsLastExam/ale/blob/main/docs/specs/trace.md)).
+   ([what each holds](https://github.com/AgentsLastExam/orbit/blob/main/docs/specs/trace.md)).
 2. Review the run before sharing it: `result.json` status and rewards, and that no credential or
    private note appears in the trajectory (ALE redacts the credentials it knows; check anyway).
 3. Upload with this skill's script, dry run first:
@@ -204,16 +206,16 @@ ready ones together and opens one pull request per blocked Task), and the reposi
    (the Task folder's git tree plus its material tree on the asset dataset), and shows where each
    episode will go: `tasks/<path>/<version>/<run id>/<episode id>/`, with a `version.json`. Drop
    `--dry-run` to upload; it needs `huggingface_hub` (`uv run --with huggingface_hub python3 …`).
-4. Episodes are uploaded exactly as `ale run` wrote them. Results are compared only within one Task
+4. Episodes are uploaded exactly as `orbit run` wrote them. Results are compared only within one Task
    version; never edit, merge or re-file a run under another version.
 
 ## Troubleshooting
 
 | Message | Fix |
 |---|---|
-| `HTTP 401` / `403` on a dataset | request access on the dataset page; check `ALE_HF_TOKEN` |
-| `ale assets push` rejected as `non-fast-forward`, later Tasks skipped | the Task's cached asset branch is stale: remove `.ale-cache/asset-worktrees/tasks/<path>` (`git worktree remove` in `.git/ale-assets/repository`), the branch `manual/tasks/<path>` there and `<path>.publication.json`, push again, then `ale assets status` |
-| `asset workspace belongs to a different Task repository` | the dataset moved organization since this checkout last pushed: delete the checkout's `.ale-cache/` and `.git/ale-assets/` once and use the new `ALE_ASSETS_NAMESPACE` |
+| `HTTP 401` / `403` on a dataset | request access on the dataset page; check `ORBIT_HF_TOKEN` |
+| `orbit assets push` rejected as `non-fast-forward`, later Tasks skipped | the Task's cached asset branch is stale: remove `.orbit-cache/asset-worktrees/tasks/<path>` (`git worktree remove` in `.git/orbit-assets/repository`), the branch `manual/tasks/<path>` there and `<path>.publication.json`, push again, then `orbit assets status` |
+| `asset workspace belongs to a different Task repository` | the dataset moved organization since this checkout last pushed: delete the checkout's `.orbit-cache/` and `.git/orbit-assets/` once and use the new `ORBIT_ASSETS_NAMESPACE` |
 | `upload_runs.py`: `commit … is not in …` | `git fetch` the Task repository; the run used a commit your clone does not have |
 | `upload_runs.py`: assets dirty or unsynchronized | push the Task's assets, rerun, upload the new run |
-| `schema_version: Input should be …` from `ale lint` | the engine's Task format changed; update `schema_version` as the engine's task-authoring.md says |
+| `schema_version: … is neither Orbit's format …` from `orbit lint` | the engine's Task format changed; update `schema_version` as the engine's task-authoring.md says |

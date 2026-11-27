@@ -1,6 +1,6 @@
 # ALE skills
 
-Agent skills for people working on [Agents' Last Exam](https://github.com/AgentsLastExam/ale).
+Agent skills for people working on [Agents' Last Exam](https://github.com/AgentsLastExam/orbit).
 Each folder under `skills/` is one skill: a `SKILL.md` with instructions an AI coding agent
 (Claude Code, Codex and others that read `SKILL.md`) follows, plus any scripts it uses. They are
 also plain documentation for people.
