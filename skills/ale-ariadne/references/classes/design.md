@@ -16,20 +16,24 @@ Root: the set of conditions, each of which can be decided.
 
 Sub-questions are divided by scientific content, not by type of check, such as "convergence" or "recomputation"; the division is determined for the specific problem by the agent and the expert in step 2. A sub-question proposed by the solving agent outside the list is subject to the same requirements.
 
-Each sub-question contains all three of the following; none may be omitted, and the three must correspond:
+Each sub-question distinguishes what is given, what is delivered and how it is checked:
 
-- **Condition**: the condition the sub-question concerns, with its criterion and threshold.
-  - Check: the agent judge confirms that the condition as stated agrees with the task plan.
-- **Computation**: an independent recomputation on the candidate confirming that the condition is met; values reported by the submitter are not used.
-  - Check: the agent judge reruns the computation and calls numerical-check scripts.
-- **Rationale**: which component of the candidate makes the condition hold, with the computed result after removing or replacing that component (ablation in the Design class) and the underlying principle.
-  - Check: the agent judge reruns the computation with the component removed or replaced and reviews the rationale against the rubric.
+- **Given**: the condition the sub-question concerns, with its criterion and threshold, provided by the task and in agreement with the task plan; it is not part of the deliverable.
+- **Deliverable**: a candidate meeting the condition (all sub-questions concern the same candidate) and the design rationale. Depending on the needs of the sub-question, it takes one or more of the following forms; the expert decides in step 2 which forms are needed, and not all three are required:
+  - Computation: the computed result for the candidate under the condition; the computed result after removing or replacing the component that makes the condition hold (ablation in the Design class).
+    - Check: the agent judge independently recomputes on the candidate to confirm that the condition is met, without using values reported by the submitter, and reruns the computation with the component removed or replaced.
+  - Text: which component of the candidate makes the condition hold, and the underlying principle.
+    - Check: the agent judge reviews the design rationale against the rubric.
+  - Mathematics: a derivation or bound showing that the condition is met, where applicable.
+    - Check: formalisable parts are checked by the agent judge with the Lean tool; the rest is reviewed by the agent judge against the rubric.
+
+Where several forms are used, they must correspond: the component named in the text is the one removed or replaced in the ablation computation.
 
 Judgement of the root: all sub-questions hold; the candidate is not in the known databases (the agent judge searches the specified databases with the search tool); where the expert lists realisability as a condition, the candidate can be synthesised or fabricated.
 
 ## Necessary conditions
 
-The "condition" and "computation" items of every sub-question hold, and novelty and (where listed) realisability are satisfied. The "rationale" item distinguishes a grounded design from a chance hit.
+Every condition is confirmed to be met by the agent judge's independent recomputation, and novelty and (where listed) realisability are satisfied. The design rationale distinguishes a grounded design from a chance hit.
 
 ## Calibration cases
 
@@ -45,7 +49,7 @@ The "condition" and "computation" items of every sub-question hold, and novelty 
 
 ## Examples
 
-The sub-questions below are divided by functional content and are illustrative; the actual division is confirmed by the expert.
+The sub-questions below are divided by functional content and are illustrative; the actual division and the forms each sub-question needs are confirmed by the expert.
 
-- A drug molecule with given chemical properties: sub-questions may be binding to the target, selectivity against related targets, and drug-likeness; each contains condition, computation and rationale.
+- A drug molecule with given chemical properties: sub-questions may be binding to the target, selectivity against related targets, and drug-likeness; each is given one condition, and the deliverable is the computed result showing the candidate meets it, with the design rationale.
 - A circuit topology and parameters under noise and lithographic precision constraints: sub-questions may be the functional metric, noise tolerance and process realisability.

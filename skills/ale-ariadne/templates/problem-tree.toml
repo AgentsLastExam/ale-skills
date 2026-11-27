@@ -15,29 +15,22 @@ criteria = ""                        # judgement of the root: all sub-questions 
 id = "1"
 parent = ""                          # id of the sub-question one level up; an empty string means directly under the root
 question = ""                        # the sub-question
+given = ""                           # the phenomenon, data, condition or metric provided by the task and checked against; not part of the deliverable
 claim = ""                           # the conclusion the solving agent must reach; leaves only
 necessary_conditions = []            # conditions the claim must satisfy to hold, each with its method of checking
 
-# Each leaf contains the three items its class specifies, none omitted. Values of kind:
-#   Explanation  phenomenon / simulation / theory
-#   Prediction   model / computation / comparison
-#   Inversion    data / forward / constraint (constraints and identifiability)
-#   Design       condition / computation / rationale
-#   Development  principle / recomputation / ablation
+# The deliverable of each leaf takes one or more forms, one [[nodes.items]] per form.
+# The expert decides which forms each sub-question needs; not all three are required. Values of kind:
+#   text (explanation of the mechanism or argument) / computation (simulation, numerical results, code) / math (derivation, Lean proof)
+# Checks set by the class (e.g. comparison with the true value in Prediction, physical constraints in Inversion) go in necessary_conditions or the criterion of the relevant item.
 [[nodes.items]]
-kind = "phenomenon"
-requirement = ""                     # what this item must provide
+kind = "text"
+requirement = ""                     # what this form must provide
 tools = []                           # tools the agent judge calls, e.g. "tests/scripts/check_amplitude.py", "rerun", "tests/lean/Limit.lean"
 criterion = ""                       # the standard for judging it to hold, including tolerance
 
 [[nodes.items]]
-kind = "simulation"
-requirement = ""
-tools = []
-criterion = ""
-
-[[nodes.items]]
-kind = "theory"
+kind = "computation"
 requirement = ""
 tools = []
 criterion = ""

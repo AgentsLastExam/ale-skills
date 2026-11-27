@@ -16,20 +16,25 @@ Root: the object to be recovered and its representation.
 
 Sub-questions are divided by scientific content, not by type of check, such as "convergence" or "recomputation"; the division is determined for the specific problem by the agent and the expert in step 2. A sub-question proposed by the solving agent outside the list is subject to the same requirements.
 
-Each sub-question contains all three of the following; none may be omitted, and the three must correspond:
+Each sub-question distinguishes what is given, what is delivered and how it is checked:
 
-- **Data**: the observed features corresponding to the sub-question, for example a set of peaks in a spectrum or a region of an image.
-  - Check: the agent judge confirms that the cited features are present in the observed data.
-- **Forward computation**: the corresponding features computed from the reconstruction through the forward model, with residuals against the observed data at noise level; correct reconstruction also on phantoms with simulated ground truth and on samples of known structure.
-  - Check: the agent judge reruns the forward computation, calls numerical-check scripts on the residuals, and compares on phantoms and known samples. Residuals at noise level are a necessary condition and do not alone show that the reconstruction is correct.
-- **Constraints and identifiability**: the reconstruction satisfies the prior physical constraints; an argument that the data determine this part uniquely, or, where several solutions exist, the solution set or the uncertainty.
-  - Check: the agent judge calls numerical-check scripts on the constraints, reviews the identifiability argument against the rubric, and re-examines numerical trials under different initial values and regularisation.
+- **Given**: the observed data corresponding to the sub-question, for example a set of peaks in a spectrum or a region of an image, and the forward model. These are provided by the task and are not part of the deliverable.
+- **Deliverable**: the reconstructed part of the object. Depending on the needs of the sub-question, it takes one or more of the following forms; the expert decides in step 2 which forms are needed, and not all three are required:
+  - Computation: the reconstruction, and the corresponding features computed from it through the forward model, with residuals against the observed data at noise level; correct reconstruction also on phantoms with simulated ground truth and on samples of known structure.
+    - Check: the agent judge reruns the forward computation, calls numerical-check scripts on the residuals, and compares on phantoms and known samples. Residuals at noise level are a necessary condition and do not alone show that the reconstruction is correct.
+  - Text: the observed features that support this part; an argument that the data determine this part uniquely, or, where several solutions exist, the solution set or the uncertainty.
+    - Check: the agent judge confirms that the cited features are present in the observed data, reviews the identifiability argument against the rubric, and re-examines numerical trials under different initial values and regularisation.
+  - Mathematics: a proof of identifiability or uniqueness, where applicable.
+    - Check: formalisable parts are checked by the agent judge with the Lean tool; the rest is reviewed by the agent judge against the rubric.
+- **Physical constraints**: the agent judge calls numerical-check scripts to check that the reconstruction satisfies the prior physical constraints.
+
+Where several forms are used, they must correspond: the features cited in the text are reproduced by the forward computation, and the identifiability argument concerns the reconstruction actually given in the computation.
 
 Judgement of the root: all sub-questions hold, and the complete object assembled from the parts agrees with all observed data.
 
 ## Necessary conditions
 
-All three items of every sub-question hold: identifiability is argued; reconstruction is correct on phantoms and known samples; data residuals are at noise level; the physical constraints are satisfied.
+The deliverables of all sub-questions hold: identifiability is argued; reconstruction is correct on phantoms and known samples; data residuals are at noise level; the physical constraints are satisfied.
 
 ## Calibration cases
 
@@ -45,8 +50,8 @@ All three items of every sub-question hold: identifiability is argued; reconstru
 
 ## Example: molecular structure from spectra
 
-Given a set of spectra, determine the molecular structure. The sub-questions below are divided by structural content and are illustrative; the actual division is confirmed by the expert.
+Given a set of spectra, determine the molecular structure. The sub-questions below are divided by structural content and are illustrative; the actual division and the forms each sub-question needs are confirmed by the expert.
 
-1. **Molecular formula and degree of unsaturation.** Data: molecular ion peak and isotope pattern in the mass spectrum. Forward computation: the isotope pattern computed from the candidate formula agrees with the measurement. Constraints and identifiability: valence rules; an argument on whether the data distinguish close formulas.
-2. **Functional groups.** Data: characteristic peaks in IR and NMR. Forward computation: simulated chemical shifts of the candidate groups agree with the measurement. Constraints and identifiability: an argument that each assignment is unique.
-3. **Skeleton connectivity and stereochemistry.** Data: cross peaks in 2D NMR. Forward computation: residuals between the simulated spectra of the complete candidate and the measured spectra are at noise level. Constraints and identifiability: stereochemical constraints; all candidates where several configurations remain.
+1. **Molecular formula and degree of unsaturation.** Given: molecular ion peak and isotope pattern in the mass spectrum. Deliverable, computation: the isotope pattern computed from the candidate formula agrees with the measurement. Deliverable, text: an argument on whether the data distinguish close formulas. Physical constraints: valence rules.
+2. **Functional groups.** Given: characteristic peaks in IR and NMR. Deliverable, computation: simulated chemical shifts of the candidate groups agree with the measurement. Deliverable, text: an argument that each assignment is unique.
+3. **Skeleton connectivity and stereochemistry.** Given: cross peaks in 2D NMR. Deliverable, computation: residuals between the simulated spectra of the complete candidate and the measured spectra are at noise level. Deliverable, text: all candidates where several configurations remain. Physical constraints: stereochemical constraints.

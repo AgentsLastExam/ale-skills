@@ -30,7 +30,7 @@ Which tools are used is set by each leaf's check in the problem tree, confirmed 
 
 | Material | Content | Where |
 |---|---|---|
-| Problem tree | The root question, the sub-questions, and for each leaf the claim, the three items, the tools for checking and the criteria | `tests/agent-judge/problem-tree.toml` |
+| Problem tree | The root question, the sub-questions, and for each leaf what is given, the claim, the forms of the deliverable, the tools for checking and the criteria | `tests/agent-judge/problem-tree.toml` |
 | Evaluation toolkit | The tools it may call, and which ways of checking the solving agent's quantitative results are sound | `tests/agent-judge/evaluation-toolkit/` |
 | Reference material | The metrics and domain knowledge the evaluation rests on; explanations already ruled out, with the grounds | `tests/agent-judge/reference/` |
 

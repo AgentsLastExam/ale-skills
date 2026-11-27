@@ -15,20 +15,25 @@ Root: the phenomenon or target quantity to be predicted, with its definition, co
 
 Sub-questions are divided by scientific content, not by type of check, such as "convergence" or "recomputation"; the division is determined for the specific problem by the agent and the expert in step 2. A sub-question proposed by the solving agent outside the list is subject to the same requirements.
 
-Each sub-question contains all three of the following; none may be omitted, and the three must correspond:
+Each sub-question distinguishes what is given, what is delivered and how it is checked:
 
-- **Model**: the level of theory and the approximations used for the sub-question, with an argument that they apply under the target conditions; where needed, a comparison with a higher-level method on small systems.
-  - Check: the agent judge reviews the argument against the rubric and calls numerical-check scripts on the comparison.
-- **Computation**: the numerical result of the sub-question, including convergence in the discretisation parameters (grid, basis set, system size, time step) and sensitivity analysis on the key parameters and approximations (ablation in the Prediction class).
-  - Check: the agent judge reruns the computation and calls numerical-check scripts on the convergence trend and sensitivity.
-- **Comparison**: an uncertainty estimate for the result and a comparison with the true value.
-  - Check: the agent judge calls numerical-check scripts to compare with held-out measurements, time-split new data or high-accuracy computations, and checks that the true value falls within the stated uncertainty.
+- **Given**: the target quantity of the sub-question with its definition, conditions, units and required accuracy, provided by the task. The true value is not provided to the solving agent.
+- **Deliverable**: the predicted value of the target quantity with an uncertainty estimate. Depending on the needs of the sub-question, it takes one or more of the following forms; the expert decides in step 2 which forms are needed, and not all three are required:
+  - Text: the level of theory and the approximations used, with an argument that they apply under the target conditions; where needed, a comparison with a higher-level method on small systems.
+    - Check: the agent judge reviews the argument against the rubric and calls numerical-check scripts on the comparison.
+  - Computation: the numerical result, including convergence in the discretisation parameters (grid, basis set, system size, time step), sensitivity analysis on the key parameters and approximations (ablation in the Prediction class), and the uncertainty estimate.
+    - Check: the agent judge reruns the computation and calls numerical-check scripts on the convergence trend and sensitivity.
+  - Mathematics: an analytical derivation, asymptotic behaviour or scaling relation for the target quantity, where applicable.
+    - Check: formalisable parts are checked by the agent judge with the Lean tool; the rest is reviewed by the agent judge against the rubric.
+- **Comparison with the true value**: the agent judge calls numerical-check scripts to compare the prediction with held-out measurements, time-split new data or high-accuracy computations, and checks that the true value falls within the stated uncertainty. The comparison is done by the agent judge; the solving agent has no access to the true value.
+
+Where several forms are used, they must correspond: the approximations argued in the text are those actually used in the computation, and analytical and numerical results agree where both apply.
 
 Judgement of the root: all sub-questions hold and their results are mutually consistent.
 
 ## Necessary conditions
 
-All three items of every sub-question hold. The final conclusion rests with the expert.
+The deliverables of all sub-questions hold, and the true value falls within the stated uncertainty. The final conclusion rests with the expert.
 
 ## Calibration cases
 
@@ -43,8 +48,8 @@ All three items of every sub-question hold. The final conclusion rests with the 
 
 ## Example: the Hubbard model
 
-Determine ground-state properties of the two-dimensional Hubbard model at a given interaction strength and doping. The sub-questions below are divided by physical content and are illustrative; the actual division is confirmed by the expert.
+Determine ground-state properties of the two-dimensional Hubbard model at a given interaction strength and doping. The sub-questions below are divided by physical content and are illustrative; the actual division and the forms each sub-question needs are confirmed by the expert.
 
-1. **Antiferromagnetic correlations.** Model: argue that the numerical method applies in this parameter range. Computation: spin correlation functions, with convergence extrapolation in system size and truncation parameters. Comparison: an error estimate and a comparison with high-accuracy benchmarks.
-2. **Charge stripe order.** Model, computation and comparison as above, for the charge density distribution and the stripe period, with sensitivity to the interaction strength.
-3. **d-wave pairing.** Model, computation and comparison as above, for the pairing correlation functions.
+1. **Antiferromagnetic correlations.** Given: the target quantity is the spin correlation function. Deliverable, text: an argument that the numerical method applies in this parameter range. Deliverable, computation: spin correlation functions, with convergence extrapolation in system size and truncation parameters, and an error estimate. Check: comparison with high-accuracy benchmarks.
+2. **Charge stripe order.** Given and deliverable as above, for the charge density distribution and the stripe period, with sensitivity to the interaction strength.
+3. **d-wave pairing.** Given and deliverable as above, for the pairing correlation functions.

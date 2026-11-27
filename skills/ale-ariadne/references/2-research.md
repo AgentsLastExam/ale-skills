@@ -25,7 +25,7 @@ Each task takes one top-level scientific question as its root and decomposes it 
   - Check: the tools the agent judge calls to check that evidence.
   - Necessary conditions: the conditions the claim must meet, and how each is checked.
 
-Decompose by what must be answered to answer the root fully, not by what data or tools happen to exist. Sub-questions are divided by scientific content, not by type of evidence or type of check; one sub-question per effect is one way of dividing them, and the division is determined for the specific problem; one sub-question contains all the evidence it requires. Every sub-question must contain the three items set by its class, given in the class module: phenomenon, simulation and theory for Explanation; model, computation and comparison for Prediction; data, forward computation, and constraints and identifiability for Inversion; condition, computation and rationale for Design; principle, recomputation and ablation for Development. All sub-questions are visible to the solving agent by default and are written into the task statement.
+Decompose by what must be answered to answer the root fully, not by what data or tools happen to exist. Sub-questions are divided by scientific content, not by type of evidence or type of check; one sub-question per effect is one way of dividing them, and the division is determined for the specific problem; one sub-question contains all the evidence it requires. Every sub-question distinguishes three layers, written out in the class module. Given: the phenomenon, data, condition or metric the sub-question concerns, provided by the task; it is what is checked against and is not part of the deliverable. Deliverable: the conclusion the solving agent gives and its evidence, which is a mechanism for Explanation, a predicted value with its uncertainty for Prediction, the reconstructed object for Inversion, a candidate with its design rationale for Design, and the improved method with its contribution for Development. Check: how the agent judge checks the deliverable. The deliverable can take three forms: text (an explanation of the mechanism or an argument), computation (simulation, numerical results, code) and mathematics (derivation, with formalisable parts proved in Lean). The expert decides for each sub-question which of these it needs; not all three are required. All sub-questions are visible to the solving agent by default and are written into the task statement.
 
 Each leaf can be built as a separate sub-task, which helps the agent and the expert delimit context and design checks; when solving, the solving agent must handle all sub-questions together, and the agent judge reviews the evidence from all leaves together.
 
@@ -33,12 +33,13 @@ Sub-questions found during decomposition that the class module's template does n
 
 ## Evidence types
 
+- **Textual argument**: explain the mechanism, the validity of approximations or the design rationale in text, reviewed by the agent judge against the rubric.
 - **Simulation or computation**: reproduce the phenomenon computationally, or give numerical results.
 - **Mathematical derivation**: show the claim holds with equations and derivation; formalisable parts are given as Lean proofs, with statements written in advance and confirmed by the expert.
 - **Data comparison**: compare with existing observations or held-out data.
 - **Experiment**: obtained through new experiments or observations; only for tasks at physical-world observation level 2, see "Tasks at physical-world observation level 2" below.
 
-One sub-question usually requires several kinds of evidence, and they must correspond. In the Explanation class, for example, a sub-question requires the phenomenon (data comparison), the simulation (simulation evidence) and the theory (mathematical derivation): every element confirmed in simulation has a corresponding term or assumption in the equations.
+One sub-question may require several kinds of evidence; the expert decides which for each sub-question, and where several are used they must correspond. In the Explanation class, for example, a sub-question may give a text explanation of the mechanism (textual argument), a simulation reproducing the phenomenon (simulation evidence, compared with experimental data) and a derivation of the mechanism (mathematical derivation): every element confirmed in simulation has a corresponding term or assumption in the equations.
 
 ## Necessary conditions
 
@@ -58,7 +59,7 @@ Physical elements are often coupled: checking each element separately cannot rep
 - Necessity comes first. Once the minimal combination that reproduces the phenomenon is found, the main part of the question is answered; the roles of other elements are incremental findings.
 - Numerical-check scripts are written against the unified output format, not against individual elements; see "Unified output format" in `references/agent-judge.md`.
 
-Where ablation sits in each class: within the "simulation" of each sub-question for Explanation, within the sensitivity analysis of "computation" for Prediction, within "rationale" for Design, and as the "ablation" item itself for Development.
+Where ablation sits in each class: in Explanation it tests whether each element of the simulation is necessary; in Prediction it corresponds to the sensitivity analysis of the computation; in Design it tests the design rationale; in Development it establishes the contribution of each improvement.
 
 ## Evidence and checking tools
 
