@@ -15,10 +15,11 @@ Scoring is performed by the agent judge. Working from the problem tree, the agen
 
 **The task package built on the expert's side is a preliminary version.** Building and trial-running the package locally serves to confirm that the plan is feasible: the agent judge produces a score, and every calibration case, including the empty submission and the known shortcuts, scores within its expected range. The preliminary package is submitted to the project team together with the research records, but it does not become an official task as it stands. This must be made clear to the expert.
 
-Besides constructing the task, this Skill serves two further purposes:
+Besides constructing the task, this Skill serves three further purposes:
 
 - **Determining the verification cycle and verification cost**, that is, the time and expense between the completion of a submission and the evaluation of its quality. Step 1 obtains the expert's estimate; step 2 measures it.
 - **Accumulating problem sense**, that is, which problems in the field matter and why, and what constitutes a good result. Records are accumulated expert by expert. They are intended for the agent itself and are read before the next conversation with an expert in the same field.
+- **Accumulating pitfall records**, that is, what went wrong while constructing a task without being visible at once, stated with the task name, the numbers observed and the limit of the lesson. Records are accumulated task by task and read on entering each step. See `references/pitfalls.md`.
 
 ## Principles of communication with the expert
 
@@ -37,7 +38,7 @@ At the start of every session, first read `references/0-setup.md`: determine the
 
 ## The five steps
 
-Proceed in order. On entering each step, first read the corresponding file.
+Proceed in order. On entering each step, first read the corresponding file, and the pitfall records for that step under the same file name in `references/pitfalls/`.
 
 | Step | Work | Read first | Output | Condition for proceeding |
 |---|---|---|---|---|
@@ -66,7 +67,7 @@ When returning to an earlier step:
 
 - **Propagate changes to the plan.** When the goal, deliverables or scoring change, ask the expert to reconfirm, revise the task package according to the new plan, and redo step 5 in full.
 - **Self-check again after corrections.** After correcting the task in step 5, conduct another round of trial runs and self-review to confirm that the problem has been resolved.
-- **Record every return.** Record the reason, the step returned to and the changes made in the research log, and reset the step number in the first line of the problem card.
+- **Record every return.** Record the reason, the step returned to and the changes made in the research log, and reset the step number in the first line of the problem card. Write a pitfall record for it in the same file; see `references/pitfalls.md`.
 - **The five steps must be completed in full at least once before submission; thereafter the number of rounds is unlimited, and the time of submission is for the expert to decide.** After the first full pass, report the current status and any unresolved problems to the expert at the end of each round. If the expert wishes to continue revising, continue; if the expert decides to submit, submit, neither obstructing nor pressing. Record unresolved problems faithfully.
 
 ## ALE Brew tools
@@ -86,7 +87,7 @@ No tools are called between steps; all records are written to the task folder. O
 9. Every run is recorded in the research log, including failed runs.
 10. If no workable check can be found, put the task on hold and keep the research log. Do not force the construction.
 11. Record the verification cycle and cost faithfully: the expert's estimate in step 1 and the measurement in step 2. Do not persuade the expert to change the problem because verification is slow or expensive, and do not judge on your own whether it is fast enough.
-12. Files under `references/problem-sense/` are maintained by the project team; the agent reads them but does not modify them. Do not disclose the identity of other experts to the expert.
+12. Files under `references/problem-sense/` and `references/pitfalls/` are maintained by the project team; the agent reads them but does not modify them. Do not disclose the identity of other experts to the expert.
 13. Record a confirmation at the end of the plan, with the expert's own words, only after the expert has explicitly confirmed. Never confirm on the expert's behalf.
 14. The task package built on the expert's side is a preliminary version, not an official task. Do not tell the expert that the task will be published as it stands.
 
@@ -142,7 +143,7 @@ The expert runs the agent in a working directory, in which each task occupies a 
   research/
     problem-card.md      # step 1: problem card, including verification cycle and cost
     problem-sense-notes.md # from step 1: problem sense obtained from this expert; no fixed format
-    research-log.md      # step 2: method, result and compute of each run
+    research-log.md      # step 2: method, result and compute of each run; pitfall records from every step
     verifier-decision.md # step 2: checking plan: tools the agent judge calls for each leaf, evidence, rationale
     plan.md              # step 3: task plan confirmed by the expert
     selfcheck.md         # step 5: record of trial runs and self-review

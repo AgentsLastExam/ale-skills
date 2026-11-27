@@ -2,11 +2,35 @@
 
 Tasks and answers are used only to evaluate an agent's research ability. They are not medical advice for patients. A task package must not contain any information that can identify a person.
 
+## Subdomains
+
+The directions of medicine and health differ widely in their objects of study, types of data and ways of verification. This file gives what is common to all of them. Once the expert has described the research problem, pick the subdomain file from the table below and read it as well; the files are in `references/disciplines/medicine/`. A subdomain file only adds what is specific to that direction (screening examples, checking templates, data sources, tools, pitfalls and a worked example); it does not alter the provisions of this file. When a problem spans two subdomains, read both files; when it is unclear where a problem belongs, ask the expert to say. Record the chosen subdomain under "Discipline" in the problem card.
+
+| Subdomain | Scope | File |
+|---|---|---|
+| Health policy and economics | Payment and insurance design, cost-effectiveness analysis, health technology assessment, equity and access, regulation and ethics | `health-policy-economics.md` |
+| Epidemiology and causal inference | Observational study design, bias, confounding and sensitivity analysis, surveillance and outbreak investigation, infectious disease modeling, evidence synthesis | `epidemiology.md` |
+| Global and environmental health | Burden of disease, environmental and occupational exposure, nutrition and lifestyle, health behavior and intervention, health in low-resource settings | `global-environmental-health.md` |
+| Health systems and implementation | Quality improvement and patient safety, implementation science, primary and community care, workforce and staffing, care coordination and referral | `health-systems.md` |
+| Clinical trials and evidence generation | Randomized trial design, adaptive and platform trials, real-world evidence and external controls, endpoints and patient-reported outcomes, conduct, monitoring and analysis of trials | `clinical-trials.md` |
+| Health informatics and clinical AI | EHR data modeling and phenotyping, clinical prediction models, decision support and deployment, standards and interoperability, privacy and distributed learning | `health-informatics.md` |
+| Clinical assessment and digital phenotyping | Scales and psychometrics, wearables and passive sensing, mental health assessment and intervention, function, rehabilitation and sports medicine, pain and symptom measurement | `clinical-assessment.md` |
+| Medical imaging | Acquisition and reconstruction, segmentation and quantitative imaging, radiomics and prognostic modeling, registration and multimodal fusion, image-guided intervention | `medical-imaging.md` |
+| Physiological signals and monitoring | Cardiac electrophysiology and ECG, EEG and neuromonitoring, hemodynamics and circulatory modeling, respiration and ventilation, deterioration and bedside monitoring | `physiological-signals.md` |
+| Laboratory medicine and biomarkers | Clinical chemistry and hematology, immunoassays and autoantibodies, infectious diagnostics, liquid biopsy and circulating markers, assay quality and interpretation | `laboratory-medicine.md` |
+| Infectious disease and host response | Pathogen genomics and typing, antimicrobial therapy and stewardship, vaccine immunogenicity and effectiveness, management of HIV and chronic infection, host response and severity | `infectious-disease.md` |
+| Pathology and tissue diagnosis | Histopathology and digital slides, immunohistochemistry and molecular pathology, tumor classification and staging, spatial omics on tissue, death certification and cause-of-death coding | `pathology.md` |
+| Therapeutics and pharmacology | Pharmacokinetics and pharmacodynamics, dose individualization, drug safety and pharmacovigilance, resistance and combination therapy, formulation and delivery | `therapeutics-pharmacology.md` |
+| Precision medicine and clinical genomics | Clinical variant interpretation, diagnostic sequencing, pharmacogenomics, polygenic risk and population genomics, cancer genomics and targeted therapy | `precision-medicine.md` |
+
+For basic research questions whose object is cells, animal models or molecular mechanisms, see `references/disciplines/biology.md`.
+
 ## Screening criteria
 
 - Build with priority: questions that can be answered with de-identified data that is public, or that the expert can obtain compliantly and is allowed to put into a task, and that have an independent validation set or an external cohort (prediction models, evaluation of diagnostic accuracy, reanalysis of clinical trial data, image analysis, evidence synthesis).
 - Build with priority: conclusions that come down to a statistic defined in advance (AUROC, hazard ratio, sensitivity and specificity, calibration).
 - Defer: tasks that need newly recruited patients or a new clinical trial to be judged (physical-world observation level 3); data under controlled access whose data use agreement does not allow redistribution; findings from single-center data with no external validation; answers that are treatment advice for a specific patient with no objective standard to judge by; data containing information that can identify a person.
+- Defer: questions whose criterion of success can only be met by a prospective clinical study or by acceptance from a regulatory agency. Such a question often contains a sub-problem that can be checked on its own; discuss with the expert building the task on that sub-problem instead, and state in the problem card what the sub-problem shows and what it does not. Examples: the clinical protection of a universal vaccine against strains not included in its design cannot be judged here, while the population HLA coverage of conserved T-cell epitopes can be computed; the prospective sensitivity of early cancer screening by ctDNA from a single fingerstick drop of blood cannot be judged here, while the counting limit on the number of mutant molecules in the sampled volume can be derived and computed; regulatory acceptance of a surrogate endpoint for aging cannot be judged here, while whether a change in the marker mediates the change in outcome can be reanalyzed in existing interventional cohorts. Whether to switch to the sub-problem is the expert's decision.
 
 ## Matters to confirm in conversation
 
