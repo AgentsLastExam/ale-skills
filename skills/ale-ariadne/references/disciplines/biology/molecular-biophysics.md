@@ -49,7 +49,7 @@ The templates below add to the general templates in `references/disciplines/biol
 - Published free energies and structures can be found by searching: make the submitted samples, input files and coordinates the object of scoring, let the agent judge recompute them, and let the values the submitter reports score nothing on their own.
 - Split structure tasks by time: use only entries released after the cutoff date, and truncate the sequence databases, structure databases and model weights in the solving environment to the same date.
 - The task statement contains no PDB IDs, EMDB IDs, UniProt accessions, compound names or paper titles; ligands are renumbered in the task statement.
-- The held-out experimental values, the held-out half-map, the reference model and the results of the reference computation are kept only in `tests/` and never enter the solving environment with the task package.
+- The held-out experimental values, the held-out half-map and any map computed from both half-maps (the full map, sharpened or not), the reference model and the results of the reference computation are kept only in `tests/` and never enter the solving environment with the task package.
 - For design tasks, the agent judge uses the search tool to compare candidates with known entries; a submission of a known molecule or a published design scores nothing.
 
 ## Tools and compute

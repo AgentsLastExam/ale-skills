@@ -27,7 +27,7 @@ This is a preliminary build whose purpose is to confirm that the plan is workabl
     - The agent judge's materials are kept in `tests/agent-judge/`: `problem-tree.toml` (the problem tree written in step 2 and confirmed in step 3), `evaluation-toolkit/` (the tools it may call and their sound use) and `reference/` (the metrics and domain knowledge on which the evaluation rests).
     - The rubric is written into `verification_explanation` in `task.toml`. The agent judge works through the leaves on the basis of `problem-tree.toml` and the rubric.
     - `tests/test.sh` runs the agent judge and writes the score to `reward.json`; it writes each leaf's verdict and evidence, together with the overall judgement (claims supported, gaps, score), to `verification.json`.
-    Fix random seeds wherever random numbers are used. Data reserved for the review and the reference answer are kept only in `tests/`.
+    Fix random seeds wherever random numbers are used. Data reserved for the review and the reference answer are kept only in `tests/` and, where a calibration case needs them, in that case's folder in `calibration/`.
 7. **Check repeatedly until all conditions are met.** Run `ale lint` and `ale calibrate`, correct what they report, and continue until the four completion conditions below are all met. The two commands are described under "`ale lint` and `ale calibrate`" below.
 
 ## `ale lint` and `ale calibrate`
