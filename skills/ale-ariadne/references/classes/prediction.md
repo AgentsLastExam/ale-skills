@@ -45,6 +45,7 @@ The deliverables of all sub-questions hold, and the true value falls within the 
 
 - Looking up published values: use new data split by time or unpublished systems; the task statement contains no identifiers that lead back to the answer, such as paper titles or database IDs.
 - Simple extrapolation of existing data: choose true values outside the range existing data cover.
+- Stating an uncertainty wide enough to contain any plausible value: judge the prediction against the required precision as well as against its stated uncertainty.
 
 ## Example: the Hubbard model
 

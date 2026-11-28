@@ -9,7 +9,7 @@ Use `submit_task` to submit the task's entire folder to the project team: the pr
 The first four items indicate that the five steps have been completed once; if any is missing, the task cannot be submitted, and `submit_task` will also refuse it. For the remaining items, report any that are not yet satisfied to the expert, who decides whether to submit now or to complete them first.
 
 - All five parts of the task package are present: `task.toml`, `instruction.md`, `environment/`, `tests/`, `calibration/`.
-- All eight records are present in `research/` and up to date.
+- All seven records are present in `research/` and up to date.
 - The confirmation at the end of the plan applies to the current version. If the plan has changed substantively since confirmation, ask the expert to reconfirm.
 - Both the expert-estimate and measured columns of "Verification cycle and cost" in the problem card are filled in. For a task at physical-world observation level 2, parts that cannot be measured are recorded as such.
 - `ale lint` and `ale calibrate` pass: every calibration case, including the empty submission, scores within the range set in `[[calibration]]`. For a task at physical-world observation level 2, scores that require an experiment are recorded as not run.
@@ -17,6 +17,7 @@ The first four items indicate that the five steps have been completed once; if a
 - The task statement and solving environment contain no content of `research/` and no reference answer.
 - `research/sources.md` gives the source of every piece of data and code used.
 - No file contains passwords, keys or personal accounts.
+- No file, including the session records in `research/conversation/`, contains data that its licence or data use agreement does not allow to be passed to the project team.
 - If the expert chose to submit the full conversation, `research/conversation/` contains the session record files for this task.
 
 If `submit_task` refuses the submission, the `missing` field of its response lists what is lacking.

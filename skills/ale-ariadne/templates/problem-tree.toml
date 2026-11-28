@@ -1,7 +1,7 @@
 # Problem tree
 # Location: tests/agent-judge/problem-tree.toml in the task package; written in step 2 and confirmed by the expert in step 3.
 # The agent judge checks the task sub-question by sub-question against this file. The file sits in tests/ and is not shown to the solving agent;
-# the sub-questions in the task statement are drawn from the question fields of nodes, and the task statement must not contain claim or criterion.
+# the sub-questions in the task statement are drawn from the question fields of nodes; the task statement must not contain claim, and of criterion it gives only the allowed errors and accepted forms (see "Correctness criteria" in references/4-build.md).
 
 problem_class = "explanation"        # explanation | prediction | inversion | design | development; identical to task.toml
 

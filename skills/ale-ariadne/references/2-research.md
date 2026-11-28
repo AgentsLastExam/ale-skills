@@ -51,7 +51,7 @@ When a claim has the form "element X causes phenomenon Y", establish the causal 
 
 1. Build a model with all candidate elements and confirm it reproduces phenomenon Y.
 2. Remove one element at a time, keeping the rest fixed, and observe whether Y disappears or changes quantitatively.
-3. Classify each element as essential, influential or negligible, and state the parameter range where the conclusion holds.
+3. Classify each element as required, influential or negligible, and state the parameter range where the conclusion holds.
 
 Physical elements are often coupled: checking each element separately cannot replace checking the whole, and enumerating combinations is computationally infeasible. Therefore:
 
@@ -86,7 +86,7 @@ How the outcome is used depends on the scientific discovery level:
 - **Scientific discovery levels 1–2**: the review must not be fooled. If it was, revise the checks and try again.
 - **Scientific discovery level 3**: not being fooled is not required. Record the cases that pass without truly solving the problem in the checking plan, so the expert can compare against them when judging answers later.
 
-Every shortcut found becomes a calibration case with an expected score set by the expert; in step 4 it is built as a case that should not pass.
+Every shortcut found becomes a calibration case with an expected score set by the expert; in step 4 it is built as a case that should not pass. At scientific discovery level 3, a shortcut recorded in the checking plan as passing is built with the score the expert expects for it.
 
 ## Measuring the verification cycle and cost
 
